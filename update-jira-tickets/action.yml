@@ -23,6 +23,7 @@ runs:
   using: "composite"
   steps:
     - run: |
+        echo "Updating Jira tickets: ${{ inputs.jira_tickets }}
         for ticket in ${{ inputs.jira_tickets }}; do
           echo "Updating Jira ticket: $ticket"
           curl --request PUT \
