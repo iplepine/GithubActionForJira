@@ -14,5 +14,5 @@ runs:
         git log --pretty=format:'%B' ${{ github.event.before }}..${{ github.event.after }} > commit_data.txt
         tickets=$(grep -oPi "${{ inputs.ticket_regex }}" commit_data.txt | sort -u | tr '\n' ' ')
         echo "Found Jira tickets: $tickets"
-        echo "jira_tickets=$tickets" >> $GITHUB_OUTPUT
+        echo "jira_tickets=$tickets" >> $GITHUB_ENV
       shell: bash

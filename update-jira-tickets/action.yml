@@ -11,7 +11,7 @@ inputs:
     description: "Jira instance URL"
     required: true
   jira_tickets:
-    description: "List of Jira tickets"
+    description: "List of Jira tickets with white space"
     required: true
   jira_update_field:
     description: "Jira field ID"
@@ -23,7 +23,7 @@ runs:
   using: "composite"
   steps:
     - run: |
-        echo "Updating Jira tickets: ${{ inputs.jira_tickets }}
+        echo "Updating Jira tickets: ${{ inputs.jira_tickets }}"
         for ticket in ${{ inputs.jira_tickets }}; do
           echo "Updating Jira ticket: $ticket"
           curl --request PUT \
