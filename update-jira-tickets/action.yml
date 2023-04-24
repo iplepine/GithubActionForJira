@@ -32,7 +32,7 @@ runs:
             --header 'Content-Type: application/json' \
             --data '{
               "fields": {
-                "'"$JIRA_UPDATE_FIELD"'": "${{ inputs.jira_update_field_value }}"
+                "'"inputs.jira_update_field"'": "${{ inputs.jira_update_field_value }}"
               }
             }'
         done
