@@ -1,0 +1,39 @@
+name: "Update Jira Tickets"
+description: "Update Jira tickets with a custom field value"
+inputs:
+  jira_api_token:
+    description: "Jira API token"
+    required: true
+  jira_email:
+    description: "Jira email"
+    required: true
+  jira_instance_url:
+    description: "Jira instance URL"
+    required: true
+  jira_tickets:
+    description: "List of Jira tickets"
+    required: true
+  jira_update_field:
+    description: "Jira field ID"
+    required: true
+  jira_update_field_value:
+    description: "jira field value"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        for ticket in ${{ inputs.jira_tickets }}; do
+          echo "Updating Jira ticket: $ticket"
+          curl --request PUT \
+            --url "${{ inputs.jira_instance_url }}/rest/api/3/issue/$ticket" \
+            --user "${{ inputs.jira_email }}:${{ inputs.jira_api_token }}" \
+            --header 'Accept: application/json' \
+            --header 'Content-Type: application/json' \
+            --data '{
+              "fields": {
+                "'"$JIRA_UPDATE_FIELD"'": "${{ inputs.jira_update_field_value }}"
+              }
+            }'
+        done
+      shell: bash
